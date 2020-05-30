@@ -1,0 +1,32 @@
+[package]
+name = "altv"
+version = "0.1.0"
+authors = ["Dimaa <personal@dimaa.io>"]
+edition = "2018"
+description = "Data-oriented AltV module written in Rust"
+exclude = ["examples/*"]
+repository = "https://gitlab.com/Dimaa/altv-rs"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+
+[dependencies]
+altv-core = { path = "altv-core" }
+altv-sdk = { path = "altv-sdk" }
+once_cell = "1.3.1"
+shrev = "1.1.1"
+specs = "0.16.1"
+
+#[[example]]
+#name = "gangwar"
+#path = "examples/gangwar"
+
+[workspace]
+members = [
+    "altv-core",
+    "altv-module",
+    "altv-sdk",
+    "examples/gangwar"
+]

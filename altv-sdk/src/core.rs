@@ -1,0 +1,3 @@
+pub const DEFAULT_DIMENSION: i32 = 0;
+pub const GLOBAL_DIMENSION: i32 = -2147483648;
+pub const SDK_VERSION: u32 = 34;

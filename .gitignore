@@ -1,0 +1,8 @@
+/target
+Cargo.lock
+
+/.idea
+copy.bat
+copy.sh
+/server-win
+/server-linux
