@@ -136,11 +136,11 @@ pub fn create_collision_shape_cylinder(
 //             radius,
 //             height,
 //             Box::into_raw(Box::new(color)),
-//         ) as *mut alt_RefBase_RefStore_IColShape;
+//         );
 //
 //         let alt = world.read_resource::<AltResource>();
 //         *alt.checkpoints
-//             .get(&(alt_IColShape_to_alt_ICheckpoint((*cp).ptr) as usize))
+//             .get(&((*cp).ptr as usize))
 //             .unwrap()
 //     }
 // }
@@ -148,23 +148,25 @@ pub fn create_collision_shape_cylinder(
 // pub fn create_blip(world: &World, blip_type: u8, position: Vector3) -> Entity {
 //     unsafe {
 //         let core = alt_ICore_Instance();
-//         dbg!();
 //         let blip = alt_ICore_CreateBlip_CAPI_Heap(
 //             core,
 //             alt_RefBase_RefStore_IPlayer_Create_3_CAPI_Heap(),
 //             alt_IBlip_BlipType::ALT_IBLIP_BLIPTYPE_OBJECT,
 //             Box::into_raw(Box::new(position.into())),
 //         );
-//         dbg!(blip);
-//
-//         let blip = blip.offset(8) as *mut alt_IBlip;
-//         dbg!(blip);
-//
-//         dbg!(alt_IBlip_SetSprite(blip, 5));
-//         dbg!(alt_IBlip_GetBlipType(blip));
 //
 //         let alt = world.read_resource::<AltResource>();
-//         *alt.blips.get(&(blip as usize)).unwrap()
+//         *alt.blips.get(&((*blip).ptr as usize)).unwrap()
+//     }
+// }
+
+// pub fn create_voice_channel(world: &World, spacial: bool, max_distance: f32) -> Entity {
+//     unsafe {
+//         let core = alt_ICore_Instance();
+//         let voice_channel = alt_ICore_CreateVoiceChannel_CAPI_Heap(core, spacial, max_distance);
+//
+//         let alt = world.read_resource::<AltResource>();
+//         *alt.voice_channels.get(&((*voice_channel).ptr as usize)).unwrap()
 //     }
 // }
 
@@ -273,9 +275,18 @@ impl CEntity {
         unsafe { alt_IEntity_GetID(self.0.load(Ordering::Relaxed)) }
     }
 
-    // pub fn get_network_owner(&self) -> Option<Entity> {
-    //     unimplemented!()
-    // }
+    pub fn get_network_owner(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let player = alt_IEntity_GetNetworkOwner_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let player = (*player).ptr;
+
+            if player.is_null() {
+                return None;
+            }
+
+            Some(*alt.players.get(&(player as usize)).unwrap())
+        }
+    }
 
     pub fn get_rotation(&self) -> Vector3 {
         unimplemented!()
@@ -359,6 +370,10 @@ impl CEntity {
                 Box::into_raw(Box::new(StringView::new(key).into())),
             )
         }
+    }
+
+    pub fn get_model(&self) -> u32 {
+        unsafe { alt_IEntity_GetModel(self.0.load(Ordering::Relaxed)) }
     }
 }
 
@@ -577,16 +592,44 @@ impl CPlayer {
         unsafe { alt_IPlayer_IsInVehicle(self.0.load(Ordering::Relaxed)) }
     }
 
-    // pub fn get_vehicle(&self) -> Option<Vehicle> {
-    //     unimplemented!()
-    // }
+    pub fn get_vehicle(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let vehicle = alt_IPlayer_GetVehicle_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let vehicle = (*vehicle).ptr;
+
+            if vehicle.is_null() {
+                return None;
+            }
+
+            Some(*alt.vehicles.get(&(vehicle as usize)).unwrap())
+        }
+    }
 
     pub fn get_seat(&self) -> u8 {
         unsafe { alt_IPlayer_GetSeat(self.0.load(Ordering::Relaxed)) }
     }
 
-    pub fn get_entity_aiming_at_id(&self) -> Option<u16> {
-        unimplemented!()
+    pub fn get_entity_aiming_at(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let entity = alt_IPlayer_GetEntityAimingAt_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let entity = (*entity).ptr;
+
+            if entity.is_null() {
+                return None;
+            }
+
+            match alt_IEntity_GetType(entity) {
+                alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_PLAYER => {
+                    let player = alt_IEntity_to_alt_IPlayer(entity);
+                    Some(*alt.players.get(&(player as usize)).unwrap())
+                }
+                alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_VEHICLE => {
+                    let vehicle = alt_IEntity_to_alt_IVehicle(entity);
+                    Some(*alt.vehicles.get(&(vehicle as usize)).unwrap())
+                }
+                _ => panic!(),
+            }
+        }
     }
 
     pub fn get_entity_aim_offset(&self) -> Vector3 {
@@ -607,10 +650,6 @@ impl CPlayer {
                 Box::into_raw(Box::new(StringView::new(reason).into())),
             )
         }
-    }
-
-    pub fn get_model(&self) -> u32 {
-        unsafe { alt_IPlayer_GetModel(self.0.load(Ordering::Relaxed)) }
     }
 
     pub fn set_model(&mut self, model: u32) {
@@ -637,9 +676,18 @@ impl Component for CPlayer {
 pub struct CVehicle(pub AtomicPtr<alt_IVehicle>);
 
 impl CVehicle {
-    // pub fn get_driver(&self) -> Option<Entity> {
-    //     unimplemented!()
-    // }
+    pub fn get_driver(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let player = alt_IVehicle_GetDriver_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let player = (*player).ptr;
+
+            if player.is_null() {
+                return None;
+            }
+
+            Some(*alt.players.get(&(player as usize)).unwrap())
+        }
+    }
 
     pub fn get_mod(&self, category: u8) -> u8 {
         unsafe { alt_IVehicle_GetMod(self.0.load(Ordering::Relaxed), category) }
@@ -1264,9 +1312,14 @@ impl CCollisionShape {
         unsafe { alt_IColShape_GetColshapeType(self.0.load(Ordering::Relaxed)) as u8 }
     }
 
-    // pub fn is_entity_in(&self, entity: Entity) -> bool {
-    //     unimplemented!()
-    // }
+    pub fn is_entity_in(&self, entity: &CEntity) -> bool {
+        unsafe {
+            alt_IColShape_IsEntityIn(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IEntity_Create_4_CAPI_Heap(entity.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
 
     pub fn is_point_in(&self, position: Vector3) -> bool {
         unsafe {
@@ -1316,13 +1369,41 @@ impl CBlip {
         unsafe { alt_IBlip_IsGlobal(self.0.load(Ordering::Relaxed)) }
     }
 
-    // pub fn get_target(&self) -> Entity {
-    //     unimplemented!()
-    // }
+    pub fn get_target(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let player = alt_IBlip_GetTarget_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let player = (*player).ptr;
 
-    // pub fn attached_to(&self) -> Entity {
-    //     unimplemented!()
-    // }
+            if player.is_null() {
+                return None;
+            }
+
+            Some(*alt.players.get(&(player as usize)).unwrap())
+        }
+    }
+
+    pub fn attached_to(&self, alt: &AltResource) -> Option<Entity> {
+        unsafe {
+            let entity = alt_IBlip_AttachedTo_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            let entity = (*entity).ptr;
+
+            if entity.is_null() {
+                return None;
+            }
+
+            match alt_IEntity_GetType(entity) {
+                alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_PLAYER => {
+                    let player = alt_IEntity_to_alt_IPlayer(entity);
+                    Some(*alt.players.get(&(player as usize)).unwrap())
+                }
+                alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_VEHICLE => {
+                    let vehicle = alt_IEntity_to_alt_IVehicle(entity);
+                    Some(*alt.vehicles.get(&(vehicle as usize)).unwrap())
+                }
+                _ => panic!(),
+            }
+        }
+    }
 
     pub fn get_blip_type(&self) -> u8 {
         unsafe { alt_IBlip_GetBlipType(self.0.load(Ordering::Relaxed)) as u8 }
@@ -1360,29 +1441,59 @@ impl CVoiceChannel {
         unsafe { alt_IVoiceChannel_GetMaxDistance(self.0.load(Ordering::Relaxed)) }
     }
 
-    // pub fn has_player(&self, player: Entity) -> bool {
-    //     unimplemented!()
-    // }
-    //
-    // pub fn add_player(&mut self, player: Entity) {
-    //     unimplemented!()
-    // }
-    //
-    // pub fn remove_player(&mut self, player: Entity) {
-    //     unimplemented!()
-    // }
-    //
-    // pub fn is_player_muted(&self, player: Entity) -> bool {
-    //     unimplemented!()
-    // }
-    //
-    // pub fn mute_player(&mut self, player: Entity) {
-    //     unimplemented!()
-    // }
-    //
-    // pub fn unmute_player(&mut self, player: Entity) {
-    //     unimplemented!()
-    // }
+    pub fn has_player(&self, player: &CPlayer) -> bool {
+        unsafe {
+            alt_IVoiceChannel_HasPlayer(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
+
+    pub fn add_player(&mut self, player: &CPlayer) {
+        unsafe {
+            alt_IVoiceChannel_AddPlayer(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
+
+    pub fn remove_player(&mut self, player: &CPlayer) {
+        unsafe {
+            alt_IVoiceChannel_RemovePlayer(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
+
+    pub fn is_player_muted(&self, player: &CPlayer) -> bool {
+        unsafe {
+            alt_IVoiceChannel_IsPlayerMuted(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
+
+    pub fn mute_player(&mut self, player: &CPlayer) {
+        unsafe {
+            alt_IVoiceChannel_MutePlayer(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
+
+    pub fn unmute_player(&mut self, player: &CPlayer) {
+        unsafe {
+            alt_IVoiceChannel_UnmutePlayer(
+                self.0.load(Ordering::Relaxed),
+                alt_RefBase_RefStore_IPlayer_Create_4_CAPI_Heap(player.0.load(Ordering::Relaxed)),
+            )
+        }
+    }
 }
 
 impl Component for CVoiceChannel {

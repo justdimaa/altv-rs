@@ -1,6 +1,7 @@
 use crate::systems::player_spawner::PlayerSpawner;
 use altv::app::{ApplicationBuilder, CoreApplication};
-use altv::ecs::{Join, ReadStorage, WorldExt, WriteStorage};
+use altv::core::AltResource;
+use altv::ecs::{Join, Read, ReadStorage, WorldExt, WriteStorage};
 use altv::game_data::{GameData, GameDataBuilder, StateData};
 use altv::sdk::elements::*;
 use altv::sdk::events::*;
@@ -169,6 +170,38 @@ impl State for GameState {
                             data.world.read_storage::<CCheckpoint>().count()
                         )
                         .as_str(),
+                    );
+                }
+                "vehinfo" => {
+                    data.world.exec(
+                        |(cvehicles, cplayers, centities, alt): (
+                            ReadStorage<CVehicle>,
+                            ReadStorage<CPlayer>,
+                            ReadStorage<CEntity>,
+                            Read<AltResource>,
+                        )| {
+                            for (cvehicle, centity) in (&cvehicles, &centities).join() {
+                                let driver = cvehicle.get_driver(&alt);
+
+                                match driver {
+                                    Some(driver) => {
+                                        let cplayer = cplayers.get(driver).unwrap();
+
+                                        altv::sdk::log::info(
+                                            format!(
+                                                "Vehicle: {} | Driver: {}",
+                                                centity.get_model(),
+                                                cplayer.get_name()
+                                            )
+                                            .as_str(),
+                                        )
+                                    }
+                                    None => altv::sdk::log::info(
+                                        format!("Vehicle: {}", centity.get_model(),).as_str(),
+                                    ),
+                                }
+                            }
+                        },
                     );
                 }
                 _ => {}
