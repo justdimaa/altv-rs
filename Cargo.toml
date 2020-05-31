@@ -15,6 +15,7 @@ readme = "README.md"
 [dependencies]
 altv-core = { path = "altv-core" }
 altv-sdk = { path = "altv-sdk" }
+log = "0.4.8"
 
 #[[example]]
 #name = "gangwar"

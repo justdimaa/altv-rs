@@ -5,4 +5,5 @@ pub use crate::core::ecs;
 
 pub mod app;
 pub mod game_data;
+pub mod logger;
 pub mod state;
