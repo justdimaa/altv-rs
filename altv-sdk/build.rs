@@ -4,7 +4,7 @@ use std::env;
 use std::fs::File;
 use std::io::{Read, Write};
 
-const CAPI_DIR: &'static str = "../thirdparty/altv-capi-server";
+const CAPI_DIR: &'static str = "thirdparty/altv-capi-server";
 
 fn main() {
     let project_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
