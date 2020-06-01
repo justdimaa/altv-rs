@@ -3,6 +3,7 @@ name = "altv-sdk"
 version = "0.1.0"
 authors = ["Dimaa <personal@dimaa.io>", "7Hazard <hazard9909@gmail.com>"]
 edition = "2018"
+description = "AltV SDK"
 repository = "https://gitlab.com/Dimaa/altv-rs"
 license = "MIT/Apache-2.0"
 

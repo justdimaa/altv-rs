@@ -3,6 +3,7 @@ name = "altv-module"
 version = "0.1.0"
 authors = ["Dimaa <personal@dimaa.io>"]
 edition = "2018"
+description = "AltV module"
 repository = "https://gitlab.com/Dimaa/altv-rs"
 license = "MIT/Apache-2.0"
 
