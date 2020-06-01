@@ -4,7 +4,10 @@ version = "0.1.0"
 authors = ["Dimaa <personal@dimaa.io>"]
 edition = "2018"
 description = "Data-oriented AltV module written in Rust"
-exclude = ["examples/*"]
+exclude = [
+    "examples/*",
+    "thirdparty/*"
+]
 repository = "https://gitlab.com/Dimaa/altv-rs"
 readme = "README.md"
 
@@ -13,12 +16,8 @@ readme = "README.md"
 [features]
 
 [dependencies]
-altv-core = { path = "altv-core" }
-altv-sdk = { path = "altv-sdk" }
-
-#[[example]]
-#name = "gangwar"
-#path = "examples/gangwar"
+altv-core = { path = "altv-core", version = "0.1.0" }
+altv-sdk = { path = "altv-sdk", version = "0.1.0" }
 
 [workspace]
 members = [
