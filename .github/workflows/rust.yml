@@ -13,8 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+      - uses: actions/checkout@v2
+      - name: Build
+        run: |
+          sudo apt install -y gdb-mingw-w64 gcc-mingw-w64-x86-64
+          rustup target add x86_64-pc-windows-gnu
+          cargo build --target=x86_64-pc-windows-gnu --release --workspace --verbose
+
+      - uses: actions/upload-artifact@v2
+        name: rust-module
+        with:
+          path: target/x86_64-pc-windows-gnu/release/altv_module.dll
