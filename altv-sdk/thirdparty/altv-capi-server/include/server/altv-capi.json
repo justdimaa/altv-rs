@@ -599,6 +599,54 @@
                     "value": 2
                 }
             ]
+        },
+        "alt_config_Node_Type": {
+            "enumerators": [
+                {
+                    "name": "ALT_CONFIG_NODE_TYPE_NONE",
+                    "value": 0
+                },
+                {
+                    "name": "ALT_CONFIG_NODE_TYPE_SCALAR",
+                    "value": 1
+                },
+                {
+                    "name": "ALT_CONFIG_NODE_TYPE_LIST",
+                    "value": 2
+                },
+                {
+                    "name": "ALT_CONFIG_NODE_TYPE_DICT",
+                    "value": 3
+                }
+            ]
+        },
+        "alt_config_Parser_Token_Type": {
+            "enumerators": [
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_ARRAY_START",
+                    "value": 0
+                },
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_ARRAY_END",
+                    "value": 1
+                },
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_DICT_START",
+                    "value": 2
+                },
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_DICT_END",
+                    "value": 3
+                },
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_KEY",
+                    "value": 4
+                },
+                {
+                    "name": "ALT_CONFIG_PARSER_TOKEN_TYPE_SCALAR",
+                    "value": 5
+                }
+            ]
         }
     },
     "functions": {
@@ -5529,6 +5577,25 @@
                 "kind": 3,
                 "kind_str": "pointer",
                 "name": "alt_CSyncedMetaDataChangeEvent*"
+            },
+            "struct": "alt_CEvent"
+        },
+        "alt_CEvent_to_alt_CVehicleDestroyEvent": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "from",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
             },
             "struct": "alt_CEvent"
         },
@@ -16667,6 +16734,523 @@
                 "name": "alt_CEvent*"
             },
             "struct": "alt_CSyncedMetaDataChangeEvent"
+        },
+        "alt_CVehicleDestroyEvent_Assign_CVehicleDestroyEventRefRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Assign_constCEventRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Assign_constCVehicleDestroyEventRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_CAPI_Free": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "ptr",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Cancel": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_type",
+                    "type": {
+                        "kind": 1,
+                        "kind_str": "enumeral",
+                        "name": "alt_CEvent_Type"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CEvent"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_1_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_CVehicleDestroyEvent_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_2": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_target",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IVehicle*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_RefBase_RefStore_IVehicle"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_2_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_CVehicleDestroyEvent_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_target",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IVehicle*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_RefBase_RefStore_IVehicle"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_3": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_3_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_CVehicleDestroyEvent_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_4": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_4_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_CVehicleDestroyEvent_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_CVehicleDestroyEvent"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_Create_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_CVehicleDestroyEvent_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_type",
+                    "type": {
+                        "kind": 1,
+                        "kind_str": "enumeral",
+                        "name": "alt_CEvent_Type"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CVehicleDestroyEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_GetTarget": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IVehicle*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_RefBase_RefStore_IVehicle"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_GetTarget_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IVehicle_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IVehicle*",
+                "pointee": {
+                    "kind": 6,
+                    "kind_str": "struct",
+                    "name": "alt_RefBase_RefStore_IVehicle"
+                }
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_GetType": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 1,
+                "kind_str": "enumeral",
+                "name": "alt_CEvent_Type"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_WasCancelled": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
+        },
+        "alt_CVehicleDestroyEvent_to_alt_CEvent": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "from",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_CVehicleDestroyEvent*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_CEvent*"
+            },
+            "struct": "alt_CVehicleDestroyEvent"
         },
         "alt_CWeaponDamageEvent_Assign_CWeaponDamageEventRefRef": {
             "comment": "",
@@ -38211,6 +38795,25 @@
             },
             "struct": "alt_IVehicle"
         },
+        "alt_IVehicle_IsDestroyed_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_IVehicle*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_IVehicle"
+        },
         "alt_IVehicle_IsEngineOn": {
             "comment": "",
             "params": [
@@ -43692,6 +44295,52 @@
             },
             "struct": "alt_RefBase_RefStore_IBaseObject"
         },
+        "alt_RefBase_RefStore_IBaseObject_Create_5": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IBaseObject*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_IBaseObject"
+        },
+        "alt_RefBase_RefStore_IBaseObject_Create_5_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IBaseObject_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IBaseObject*"
+            },
+            "struct": "alt_RefBase_RefStore_IBaseObject"
+        },
         "alt_RefBase_RefStore_IBaseObject_Create_CAPI_Heap": {
             "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IBaseObject_CAPI_Free()\n",
             "returns": {
@@ -44201,6 +44850,52 @@
                             "kind_str": "struct",
                             "name": "alt_RefBase_RefStore_IColShape"
                         }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IColShape*"
+            },
+            "struct": "alt_RefBase_RefStore_IColShape"
+        },
+        "alt_RefBase_RefStore_IColShape_Create_7": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IColShape*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_IColShape"
+        },
+        "alt_RefBase_RefStore_IColShape_Create_7_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IColShape_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
                     }
                 }
             ],
@@ -44730,6 +45425,52 @@
             },
             "struct": "alt_RefBase_RefStore_IEntity"
         },
+        "alt_RefBase_RefStore_IEntity_Create_7": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IEntity*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_IEntity"
+        },
+        "alt_RefBase_RefStore_IEntity_Create_7_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IEntity_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IEntity*"
+            },
+            "struct": "alt_RefBase_RefStore_IEntity"
+        },
         "alt_RefBase_RefStore_IEntity_Create_CAPI_Heap": {
             "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IEntity_CAPI_Free()\n",
             "returns": {
@@ -45239,6 +45980,52 @@
                             "kind_str": "struct",
                             "name": "alt_RefBase_RefStore_IPlayer"
                         }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IPlayer*"
+            },
+            "struct": "alt_RefBase_RefStore_IPlayer"
+        },
+        "alt_RefBase_RefStore_IPlayer_Create_7": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IPlayer*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_IPlayer"
+        },
+        "alt_RefBase_RefStore_IPlayer_Create_7_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IPlayer_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
                     }
                 }
             ],
@@ -45768,6 +46555,52 @@
             },
             "struct": "alt_RefBase_RefStore_IVehicle"
         },
+        "alt_RefBase_RefStore_IVehicle_Create_7": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_IVehicle*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_IVehicle"
+        },
+        "alt_RefBase_RefStore_IVehicle_Create_7_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IVehicle_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_IVehicle*"
+            },
+            "struct": "alt_RefBase_RefStore_IVehicle"
+        },
         "alt_RefBase_RefStore_IVehicle_Create_CAPI_Heap": {
             "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_IVehicle_CAPI_Free()\n",
             "returns": {
@@ -46277,6 +47110,52 @@
                             "kind_str": "struct",
                             "name": "alt_RefBase_RefStore_constIMValue"
                         }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_RefBase_RefStore_constIMValue*"
+            },
+            "struct": "alt_RefBase_RefStore_constIMValue"
+        },
+        "alt_RefBase_RefStore_constIMValue_Create_7": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_RefBase_RefStore_constIMValue*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_RefBase_RefStore_constIMValue"
+        },
+        "alt_RefBase_RefStore_constIMValue_Create_7_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_RefBase_RefStore_constIMValue_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "nullptr_t"
                     }
                 }
             ],
@@ -53809,6 +54688,1315 @@
                 "name": "alt_ViewMatrixLayout*"
             },
             "struct": "alt_ViewMatrixLayout"
+        },
+        "alt_config_Emitter_CAPI_Free": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "ptr",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Emitter*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Emitter"
+        },
+        "alt_config_Error_Assign_config_ErrorRefRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_Assign_constconfig_ErrorRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_CAPI_Free": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "ptr",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_Create_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_Create_1_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Error_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Error*"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_Create_2": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_Create_2_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Error_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Error"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Error*"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_column": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "unsigned long long"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_line": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "unsigned long long"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_position": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "unsigned long long"
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Error_what": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Error*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "char*",
+                "pointee": {
+                    "kind": 0,
+                    "kind_str": "fundamental",
+                    "name": "char"
+                }
+            },
+            "struct": "alt_config_Error"
+        },
+        "alt_config_Node_Access_constcharPtr": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                },
+                {
+                    "name": "key",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "char*",
+                        "pointee": {
+                            "kind": 0,
+                            "kind_str": "fundamental",
+                            "name": "char"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 2,
+                "kind_str": "reference",
+                "name": "alt_config_Node*",
+                "pointee": {
+                    "kind": 6,
+                    "kind_str": "struct",
+                    "name": "alt_config_Node"
+                }
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Access_size_t": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                },
+                {
+                    "name": "idx",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned long long"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 2,
+                "kind_str": "reference",
+                "name": "alt_config_Node*",
+                "pointee": {
+                    "kind": 6,
+                    "kind_str": "struct",
+                    "name": "alt_config_Node"
+                }
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Assign_constconfig_NodeRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                },
+                {
+                    "name": "that",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Node"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_CAPI_Free": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "ptr",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "_Bool"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_11": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "that",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Node"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_11_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "that",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Node"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_1_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "_Bool"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_2": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "double"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_2_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "double"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_3": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "int"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_3_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "int"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_4": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned int"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_4_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned int"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_5": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "long long"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_5_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "long long"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_6": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned long long"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_6_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned long long"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_8": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "char*",
+                        "pointee": {
+                            "kind": 0,
+                            "kind_str": "fundamental",
+                            "name": "char"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_8_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "val",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "char*",
+                        "pointee": {
+                            "kind": 0,
+                            "kind_str": "fundamental",
+                            "name": "char"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_Create_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_IsDict": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_IsList": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_IsNone": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_IsScalar": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_ToBool": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_ToBool_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                },
+                {
+                    "name": "def",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "_Bool"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_ToNumber": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "double"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_ToNumber_1": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                },
+                {
+                    "name": "def",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "double"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "double"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Node_To__Bool": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "_Bool"
+            },
+            "struct": "alt_config_Node"
+        },
+        "alt_config_Parser_Assign_config_ParserRefRef": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                },
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Parser"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_CAPI_Free": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "ptr",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_2": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "data",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "char*",
+                        "pointee": {
+                            "kind": 0,
+                            "kind_str": "fundamental",
+                            "name": "char"
+                        }
+                    }
+                },
+                {
+                    "name": "size",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned long long"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_2_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Parser_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "data",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "char*",
+                        "pointee": {
+                            "kind": 0,
+                            "kind_str": "fundamental",
+                            "name": "char"
+                        }
+                    }
+                },
+                {
+                    "name": "size",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "unsigned long long"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Parser*"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_3": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Parser"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_3_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Parser_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Parser"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Parser*"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_4": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Parser"
+                        }
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Create_4_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Parser_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_p0",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Parser"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Parser*"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Parse": {
+            "comment": "",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                },
+                {
+                    "name": "returnValue",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Node"
+                        }
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 0,
+                "kind_str": "fundamental",
+                "name": "void"
+            },
+            "struct": "alt_config_Parser"
+        },
+        "alt_config_Parser_Parse_CAPI_Heap": {
+            "comment": "// Return ptr must be manually freed with alt_config_Node_CAPI_Free()\n",
+            "params": [
+                {
+                    "name": "_instance",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Parser*"
+                    }
+                }
+            ],
+            "returns": {
+                "kind": 3,
+                "kind_str": "pointer",
+                "name": "alt_config_Node*",
+                "pointee": {
+                    "kind": 6,
+                    "kind_str": "struct",
+                    "name": "alt_config_Node"
+                }
+            },
+            "struct": "alt_config_Parser"
         }
     },
     "structs": {
@@ -55279,6 +57467,51 @@
             ],
             "isVirtual": true
         },
+        "alt_CVehicleDestroyEvent": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                },
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "type",
+                    "type": {
+                        "kind": 1,
+                        "kind_str": "enumeral",
+                        "name": "alt_CEvent_Type"
+                    }
+                },
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "cancelled",
+                    "type": {
+                        "kind": 0,
+                        "kind_str": "fundamental",
+                        "name": "_Bool"
+                    }
+                },
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "target",
+                    "type": {
+                        "kind": 6,
+                        "kind_str": "struct",
+                        "name": "alt_RefBase_RefStore_IVehicle"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
         "alt_CWeaponDamageEvent": {
             "fields": [
                 {
@@ -56626,6 +58859,124 @@
                         "kind": 6,
                         "kind_str": "struct",
                         "name": "alt_Vector_float_4_VectorLayout_float_4"
+                    }
+                }
+            ]
+        },
+        "alt_config_Error": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
+        "alt_config_Node": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "type",
+                    "type": {
+                        "kind": 1,
+                        "kind_str": "enumeral",
+                        "name": "alt_config_Node_Type"
+                    }
+                },
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "val",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "alt_config_Node_Value*",
+                        "pointee": {
+                            "kind": 6,
+                            "kind_str": "struct",
+                            "name": "alt_config_Node_Value"
+                        }
+                    }
+                }
+            ]
+        },
+        "alt_config_Node_Value": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
+        "alt_config_Node_ValueDict": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
+        "alt_config_Node_ValueList": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
+        "alt_config_Node_ValueScalar": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "vtable",
+                    "type": {
+                        "kind": 3,
+                        "kind_str": "pointer",
+                        "name": "void*"
+                    }
+                }
+            ],
+            "isVirtual": true
+        },
+        "alt_config_Parser_Token": {
+            "fields": [
+                {
+                    "bitWidth": 0,
+                    "isBitField": false,
+                    "name": "type",
+                    "type": {
+                        "kind": 1,
+                        "kind_str": "enumeral",
+                        "name": "alt_config_Parser_Token_Type"
                     }
                 }
             ]
