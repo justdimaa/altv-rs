@@ -20,4 +20,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: rust-module
         with:
-          path: target/release/*
+          path: target/release/*.so

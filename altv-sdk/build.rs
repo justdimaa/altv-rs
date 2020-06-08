@@ -13,7 +13,7 @@ fn main() {
         "cargo:rustc-link-search=native={}/{}/lib",
         project_dir, CAPI_DIR
     );
-    println!(r"cargo:rustc-link-lib=static=altv-capi-server-static");
+    println!(r"cargo:rustc-link-lib=dylib=altv-capi-server");
 
     let bindings = bindgen::Builder::default()
         .header(format!("{}/include/altv-capi-server.h", CAPI_DIR))
