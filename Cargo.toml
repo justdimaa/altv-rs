@@ -1,6 +1,6 @@
 [package]
 name = "altv"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Dimaa <personal@dimaa.io>"]
 edition = "2018"
 description = "Data-oriented AltV module written in Rust"
@@ -8,7 +8,7 @@ exclude = [
     "examples/*",
     "thirdparty/*"
 ]
-repository = "https://gitlab.com/Dimaa/altv-rs"
+repository = "https://github.com/DimaaIO/altv-rs"
 readme = "README.md"
 license = "MIT/Apache-2.0"
 
@@ -18,7 +18,7 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 altv-core = { path = "altv-core", version = "0.1.0" }
-altv-sdk = { path = "altv-sdk", version = "0.1.0" }
+altv-sdk = { path = "altv-sdk", version = "0.2.0" }
 
 [workspace]
 members = [

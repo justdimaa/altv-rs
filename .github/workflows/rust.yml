@@ -1,0 +1,97 @@
+name: Rust
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build
+        run: cargo build --release --workspace --verbose
+
+      - uses: actions/upload-artifact@v2
+        name: Linux altv-rust-module artifacts
+        with:
+          name: altv-rust-module-linux
+          path: target/release/libaltv_module.so
+
+#  build-win32:
+#    runs-on: windows-latest
+#    defaults:
+#      run:
+#        shell: cmd
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Build
+#        run: |
+#
+#          cargo build --release --workspace --verbose
+#
+#      - uses: actions/upload-artifact@v2
+#        name: Windows altv-rust-module artifacts
+#        with:
+#          name: altv-rust-module-win32
+#          path: target/release/altv_module.dll
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [
+      build-linux,
+#      build-win32
+    ]
+    steps:
+      - uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - uses: actions/download-artifact@v2
+        name: Download rust-module-linux artifact
+        with:
+          name: altv-rust-module-linux
+
+      - uses: actions/upload-release-asset@v1
+        name: Upload rust-module-linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./libaltv_module.so
+          asset_name: librust-module.so
+          asset_content_type: application/octet-stream
+
+#      - uses: actions/download-artifact@v2
+#        name: Download rust-module-win32 artifact
+#        with:
+#          name: altv-rust-module-win32
+#
+#      - uses: actions/upload-release-asset@v1
+#        name: Upload rust-module-win32
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./altv_module.dll
+#          asset_name: rust-module.dll
+#          asset_content_type: application/octet-stream
