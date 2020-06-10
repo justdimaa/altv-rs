@@ -20,15 +20,16 @@ use crate::state::State;
 use std::error::Error;
 use std::sync::atomic::AtomicPtr;
 
-pub type ResourceMainFn = fn() -> Result<CoreApplication, Box<dyn Error>>;
+pub type ResourceMainFn = fn(core: usize) -> Result<CoreApplication, Box<dyn Error>>;
 
 pub struct ApplicationBuilder {
+    core: usize,
     world: World,
     state: Box<dyn State>,
 }
 
 impl ApplicationBuilder {
-    pub fn new(state: Box<dyn State>) -> Self {
+    pub fn new(core: usize, state: Box<dyn State>) -> Self {
         let mut world = World::new();
         world.insert(AltResource::default());
         // world.insert(EventChannel::<CEvent>::with_capacity(40));
@@ -43,7 +44,7 @@ impl ApplicationBuilder {
         world.register::<CCollisionShape>();
         world.register::<CCheckpoint>();
 
-        ApplicationBuilder { world, state }
+        ApplicationBuilder { core, world, state }
     }
 
     pub fn register<C>(mut self) -> Self
@@ -59,6 +60,10 @@ impl ApplicationBuilder {
     where
         I: DataInit<GameData<'static, 'static>>,
     {
+        unsafe {
+            alt_ICore_SetInstance(self.core as *mut alt_ICore);
+        }
+
         let data = init.build(&mut self.world);
 
         CoreApplication {

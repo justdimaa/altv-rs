@@ -57,7 +57,7 @@ unsafe extern "C" fn create_impl(
     let main = StringView::from(*alt_IResource_GetMain_CAPI_Heap(res)).get_data();
     let lib = Library::new(Path::new(&path).join(&main).display().to_string()).unwrap();
     let main_fn: ResourceMainFn = *lib.get(b"main\0").unwrap();
-    let main_result = main_fn();
+    let main_result = main_fn(alt_ICore_Instance() as usize);
 
     match main_result {
         Ok(app) => {

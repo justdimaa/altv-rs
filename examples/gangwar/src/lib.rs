@@ -212,8 +212,8 @@ impl State for GameState {
 }
 
 #[no_mangle]
-pub fn main() -> Result<CoreApplication, Box<dyn Error>> {
+pub fn main(core: usize) -> Result<CoreApplication, Box<dyn Error>> {
     let game_data_builder = GameDataBuilder::new().with_thread_local(PlayerSpawner);
-    let application = ApplicationBuilder::new(Box::new(GameState)).build(game_data_builder);
+    let application = ApplicationBuilder::new(core, Box::new(GameState)).build(game_data_builder);
     Ok(application)
 }
