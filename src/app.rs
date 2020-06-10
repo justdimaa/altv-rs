@@ -6,11 +6,11 @@ use crate::sdk::elements::{
     CVoiceChannel, CWorldObject,
 };
 use crate::sdk::events::{
-    CCollisionShapeEvent, CConsoleCommandEvent, CDataNodeReceivedEvent, CEvent, CExplosionEvent,
-    CGlobalMetaChangeEvent, CGlobalSyncedMetaChangeEvent, CPlayerChangeVehicleSeatEvent,
-    CPlayerConnectEvent, CPlayerDamageEvent, CPlayerDeathEvent, CPlayerDisconnectEvent,
-    CPlayerEnterVehicleEvent, CPlayerLeaveVehicleEvent, CRemoveEntityEvent,
-    CStreamSyncedMetaChangeEvent, CSyncedMetaChangeEvent, CWeaponDamageEvent,
+    CClientScriptEvent, CCollisionShapeEvent, CConsoleCommandEvent, CDataNodeReceivedEvent, CEvent,
+    CExplosionEvent, CGlobalMetaChangeEvent, CGlobalSyncedMetaChangeEvent,
+    CPlayerChangeVehicleSeatEvent, CPlayerConnectEvent, CPlayerDamageEvent, CPlayerDeathEvent,
+    CPlayerDisconnectEvent, CPlayerEnterVehicleEvent, CPlayerLeaveVehicleEvent, CRemoveEntityEvent,
+    CServerScriptEvent, CStreamSyncedMetaChangeEvent, CSyncedMetaChangeEvent, CWeaponDamageEvent,
 };
 use crate::sdk::mvalue::MValue;
 use crate::sdk::natives::*;
@@ -122,6 +122,34 @@ impl CoreApplication {
                         *target,
                         String::new(),
                     )))
+                }
+                alt_CEvent_Type::ALT_CEVENT_TYPE_CLIENT_SCRIPT_EVENT => {
+                    let event = event as *mut alt_CClientScriptEvent;
+
+                    let alt = self.world.read_resource::<AltResource>();
+                    let target = alt.players.get(&((*event).target.ptr as usize)).unwrap();
+
+                    let name = alt_CClientScriptEvent_GetName_CAPI_Heap(event);
+                    let name = StringView::from(*name).get_data();
+                    dbg!(&name);
+
+                    let args = alt_CClientScriptEvent_GetArgs(event);
+                    let args = (*args).into();
+
+                    Some(CEvent::ClientScript(CClientScriptEvent::new(
+                        *target, name, args,
+                    )))
+                }
+                alt_CEvent_Type::ALT_CEVENT_TYPE_SERVER_SCRIPT_EVENT => {
+                    let event = event as *mut alt_CServerScriptEvent;
+
+                    let name = alt_CServerScriptEvent_GetName_CAPI_Heap(event);
+                    let name = StringView::from(*name).get_data();
+
+                    let args = alt_CServerScriptEvent_GetArgs(event);
+                    let args = (*args).into();
+
+                    Some(CEvent::ServerScript(CServerScriptEvent::new(name, args)))
                 }
                 alt_CEvent_Type::ALT_CEVENT_TYPE_SYNCED_META_CHANGE => {
                     let event = event as *mut alt_CSyncedMetaDataChangeEvent;
