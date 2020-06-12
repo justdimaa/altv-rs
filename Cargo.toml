@@ -25,5 +25,5 @@ members = [
     "altv-core",
     "altv-module",
     "altv-sdk",
-    "examples/gangwar"
+    "examples/freeroam"
 ]
