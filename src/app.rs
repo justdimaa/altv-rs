@@ -348,7 +348,7 @@ impl CoreApplication {
 
                     let alt = self.world.read_resource::<AltResource>();
                     let target = alt.vehicles.get(&((*event).target.ptr as usize)).unwrap();
-                    let player = alt.vehicles.get(&((*event).player.ptr as usize)).unwrap();
+                    let player = alt.players.get(&((*event).player.ptr as usize)).unwrap();
                     let old_seat = alt_CPlayerChangeVehicleSeatEvent_GetOldSeat(event);
                     let new_seat = alt_CPlayerChangeVehicleSeatEvent_GetNewSeat(event);
 
