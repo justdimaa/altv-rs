@@ -11,6 +11,7 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 altv-core = { path = "../altv-core", version = "0.1.0" }
+nalgebra = "0.21.1"
 
 [build-dependencies]
 bindgen = "0.53.2"

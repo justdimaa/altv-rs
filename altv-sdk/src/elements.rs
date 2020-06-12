@@ -2,7 +2,7 @@ use crate::mvalue::MValue;
 use crate::natives::*;
 use crate::rgba::Rgba;
 use crate::string_view::StringView;
-use crate::vector::Vector3;
+use crate::vector::{Rotation3, Vector3};
 use altv_core::ecs::{Component, Entity, VecStorage, World, WorldExt};
 use altv_core::AltResource;
 use std::sync::atomic::{AtomicPtr, Ordering};
@@ -12,16 +12,17 @@ pub fn create_vehicle(
     world: &World,
     model: u32,
     position: Vector3,
-    rotation: Vector3,
+    rotation: Rotation3,
 ) -> Option<Entity> {
+    let rotation: alt_RotationLayout = rotation.into();
+
     unsafe {
         let core = alt_ICore_Instance();
         let veh = alt_ICore_CreateVehicle_CAPI_Heap(
             core,
             model,
             Box::into_raw(Box::new(position.into())),
-            alt_RotationLayout_Create_CAPI_Heap(rotation.x, rotation.y, rotation.z)
-                as *mut alt_Vector_float_3_RotationLayout,
+            Box::into_raw(Box::new(rotation)) as *mut alt_Vector_float_3_RotationLayout,
         );
 
         if (*veh).ptr.is_null() {
@@ -288,12 +289,21 @@ impl CEntity {
         }
     }
 
-    pub fn get_rotation(&self) -> Vector3 {
-        unimplemented!()
+    pub fn get_rotation(&self) -> Rotation3 {
+        unsafe {
+            let rot = alt_IEntity_GetRotation_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            Rotation3::from(*(rot as *mut alt_RotationLayout))
+        }
     }
 
-    pub fn set_rotation(&mut self, _rotation: Vector3) {
-        unimplemented!()
+    pub fn set_rotation(&mut self, rot: Rotation3) {
+        unsafe {
+            let rot: alt_RotationLayout = rot.into();
+            alt_IEntity_SetRotation(
+                self.0.load(Ordering::Relaxed),
+                Box::into_raw(Box::new(rot)) as *mut alt_Vector_float_3_RotationLayout,
+            )
+        }
     }
 
     pub fn has_synced_meta_data(&self, key: &str) -> bool {
@@ -584,8 +594,11 @@ impl CPlayer {
         }
     }
 
-    pub fn get_head_rotation(&self) -> Vector3 {
-        unimplemented!()
+    pub fn get_head_rotation(&self) -> Rotation3 {
+        unsafe {
+            let rot = alt_IPlayer_GetHeadRotation_CAPI_Heap(self.0.load(Ordering::Relaxed));
+            Rotation3::from(*(rot as *mut alt_RotationLayout))
+        }
     }
 
     pub fn is_in_vehicle(&self) -> bool {

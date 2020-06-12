@@ -5,7 +5,7 @@ use altv::ecs::{Join, Read, ReadStorage, WorldExt, WriteStorage};
 use altv::game_data::{GameData, GameDataBuilder, StateData};
 use altv::sdk::elements::*;
 use altv::sdk::events::*;
-use altv::sdk::vector::Vector3;
+use altv::sdk::vector::{Rotation3, Vector3};
 use altv::state::State;
 use std::error::Error;
 use std::time::Duration;
@@ -120,7 +120,7 @@ impl State for GameState {
                                 data.world,
                                 altv::sdk::hash(model),
                                 position,
-                                Vector3::zero(),
+                                Rotation3::from_euler_angles(0.0, 0.0, 0.0),
                             );
 
                             if let Some(vehicle) = vehicle {
