@@ -1,6 +1,6 @@
 use altv::app::{ApplicationBuilder, CoreApplication};
 use altv::core::AltResource;
-use altv::ecs::{Read, WriteStorage};
+use altv::ecs::{Read, WorldExt, WriteStorage};
 use altv::game_data::{GameData, GameDataBuilder, StateData};
 use altv::sdk::elements::*;
 use altv::sdk::events::*;
@@ -31,6 +31,7 @@ impl State for GameState {
         assert!(vehicle.is_some());
 
         let vehicle = vehicle.unwrap();
+        assert!(data.world.is_alive(vehicle));
 
         data.world.exec(
             |(mut crefs, mut cbase_objs, mut cworld_objs, mut centities, mut cvehicles, alt): (
@@ -67,11 +68,15 @@ impl State for GameState {
             },
         );
 
+        dbg!(altv::sdk::elements::delete(data.world, vehicle));
+        assert!(!data.world.is_alive(vehicle));
+
         let colshape = altv::sdk::elements::create_collision_shape_sphere(
             data.world,
             Vector3::new(0.0, 0.0, 71.2),
             5.0,
         );
+        assert!(data.world.is_alive(colshape));
 
         data.world.exec(
             |(mut crefs, mut cbase_objs, mut cworld_objs, mut ccolshapes): (
@@ -101,12 +106,16 @@ impl State for GameState {
                 assert_ccolshape(ccolshape, Vector3::new(0.0, 0.0, 71.2), 5.0);
             },
         );
+
+        dbg!(altv::sdk::elements::delete(data.world, colshape));
+        assert!(!data.world.is_alive(colshape));
     }
 
     fn handle_event(&mut self, data: StateData<GameData>, event: CEvent) {
         match &event {
             CEvent::PlayerConnect(event) => {
                 let target = event.get_target();
+                assert!(data.world.is_alive(target));
 
                 data.world.exec(
                     |(
@@ -149,6 +158,9 @@ impl State for GameState {
                         assert_cplayer(cplayer, &alt);
                     },
                 );
+
+                altv::sdk::elements::delete(data.world, target);
+                assert!(data.world.is_alive(target));
             }
             _ => {}
         }
@@ -248,6 +260,7 @@ fn assert_centity(centity: &mut CEntity) {
     // centity.set_rotation(Rotation3::from_euler_angles(0.0, 1.0, 2.0));
     // assert_eq!(centity.get_rotation(), Rotation3::from_euler_angles(0.0, 1.0, 2.0));
 
+    altv::sdk::log::error("asserting");
     assert!(!centity.has_synced_meta_data("test"));
     assert_eq!(centity.get_synced_meta_data("test"), MValue::None);
     centity.set_synced_meta_data("test", MValue::Nil);

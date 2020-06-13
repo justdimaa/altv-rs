@@ -155,7 +155,13 @@ impl CoreApplication {
                     let event = event as *mut alt_CSyncedMetaDataChangeEvent;
 
                     let alt = self.world.read_resource::<AltResource>();
-                    let target = CoreApplication::get_entity(&alt, (*event).target.ptr);
+                    let target = match CoreApplication::get_entity(&alt, (*event).target.ptr) {
+                        Some(target) => target,
+                        None => {
+                            crate::sdk::log::error("[Rust] Could not find target for the synced meta change event. Did you remove the entity afterwards?");
+                            return;
+                        }
+                    };
 
                     let key = alt_CSyncedMetaDataChangeEvent_GetKey_CAPI_Heap(event);
                     let key = StringView::from(*key).get_data();
@@ -174,7 +180,13 @@ impl CoreApplication {
                     let event = event as *mut alt_CStreamSyncedMetaDataChangeEvent;
 
                     let alt = self.world.read_resource::<AltResource>();
-                    let target = CoreApplication::get_entity(&alt, (*event).target.ptr);
+                    let target = match CoreApplication::get_entity(&alt, (*event).target.ptr) {
+                        Some(target) => target,
+                        None => {
+                            crate::sdk::log::error("[Rust] Could not find target for the stream synced meta change event. Did you remove the entity afterwards?");
+                            return;
+                        }
+                    };
 
                     let key = alt_CStreamSyncedMetaDataChangeEvent_GetKey_CAPI_Heap(event);
                     let key = StringView::from(*key).get_data();
@@ -229,7 +241,9 @@ impl CoreApplication {
 
                     let attacker = match (*event).attacker.ptr.is_null() {
                         true => None,
-                        false => Some(CoreApplication::get_entity(&alt, (*event).attacker.ptr)),
+                        false => {
+                            Some(CoreApplication::get_entity(&alt, (*event).attacker.ptr).unwrap())
+                        }
                     };
 
                     let damage = alt_CPlayerDamageEvent_GetDamage(event);
@@ -247,7 +261,9 @@ impl CoreApplication {
 
                     let killer = match (*event).killer.ptr.is_null() {
                         true => None,
-                        false => Some(CoreApplication::get_entity(&alt, (*event).killer.ptr)),
+                        false => {
+                            Some(CoreApplication::get_entity(&alt, (*event).killer.ptr).unwrap())
+                        }
                     };
 
                     let weapon = alt_CPlayerDeathEvent_GetWeapon(event);
@@ -284,7 +300,9 @@ impl CoreApplication {
 
                     let target = match (*event).target.ptr.is_null() {
                         true => None,
-                        false => Some(CoreApplication::get_entity(&alt, (*event).target.ptr)),
+                        false => {
+                            Some(CoreApplication::get_entity(&alt, (*event).target.ptr).unwrap())
+                        }
                     };
 
                     let weapon = alt_CWeaponDamageEvent_GetWeaponHash(event);
@@ -312,7 +330,7 @@ impl CoreApplication {
                         .collision_shapes
                         .get(&((*event).target.ptr as usize))
                         .unwrap();
-                    let entity = CoreApplication::get_entity(&alt, (*event).entity.ptr);
+                    let entity = CoreApplication::get_entity(&alt, (*event).entity.ptr).unwrap();
                     let state = alt_CColShapeEvent_GetState(event);
 
                     Some(CEvent::CollisionShapeEvent(CCollisionShapeEvent::new(
@@ -360,7 +378,7 @@ impl CoreApplication {
                     let event = event as *mut alt_CRemoveEntityEvent;
 
                     let alt = self.world.read_resource::<AltResource>();
-                    let target = CoreApplication::get_entity(&alt, (*event).target.ptr);
+                    let target = CoreApplication::get_entity(&alt, (*event).target.ptr).unwrap();
 
                     Some(CEvent::RemoveEntity(CRemoveEntityEvent::new(target)))
                 }
@@ -488,7 +506,7 @@ impl CoreApplication {
                     self.world.delete_entity(entity).unwrap();
                 }
                 alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_BLIP => {
-                    let blip = alt_IBaseObject_to_alt_IVehicle(base_obj);
+                    let blip = alt_IBaseObject_to_alt_IBlip(base_obj);
 
                     let entity = {
                         let mut alt = self.world.write_resource::<AltResource>();
@@ -498,7 +516,7 @@ impl CoreApplication {
                     self.world.delete_entity(entity).unwrap();
                 }
                 alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_VOICE_CHANNEL => {
-                    let voice_channel = alt_IBaseObject_to_alt_IVehicle(base_obj);
+                    let voice_channel = alt_IBaseObject_to_alt_IVoiceChannel(base_obj);
 
                     let entity = {
                         let mut alt = self.world.write_resource::<AltResource>();
@@ -510,7 +528,7 @@ impl CoreApplication {
                     self.world.delete_entity(entity).unwrap();
                 }
                 alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_COLSHAPE => {
-                    let collision_shape = alt_IBaseObject_to_alt_IVehicle(base_obj);
+                    let collision_shape = alt_IBaseObject_to_alt_IColShape(base_obj);
 
                     let entity = {
                         let mut alt = self.world.write_resource::<AltResource>();
@@ -536,16 +554,24 @@ impl CoreApplication {
         }
     }
 
-    fn get_entity(alt: &AltResource, entity: *mut alt_IEntity) -> Entity {
+    fn get_entity(alt: &AltResource, entity: *mut alt_IEntity) -> Option<Entity> {
         unsafe {
             match alt_IEntity_GetType(entity) {
                 alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_PLAYER => {
                     let player = alt_IEntity_to_alt_IPlayer(entity);
-                    *alt.players.get(&(player as usize)).unwrap()
+
+                    match alt.players.get(&(player as usize)) {
+                        Some(player) => Some(*player),
+                        None => None,
+                    }
                 }
                 alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_VEHICLE => {
                     let vehicle = alt_IEntity_to_alt_IVehicle(entity);
-                    *alt.vehicles.get(&(vehicle as usize)).unwrap()
+
+                    match alt.vehicles.get(&(vehicle as usize)) {
+                        Some(vehicle) => Some(*vehicle),
+                        None => None,
+                    }
                 }
                 _ => panic!(),
             }
