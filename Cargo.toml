@@ -25,5 +25,6 @@ members = [
     "altv-core",
     "altv-module",
     "altv-sdk",
-    "examples/freeroam"
+    "examples/freeroam",
+    "examples/testing"
 ]
