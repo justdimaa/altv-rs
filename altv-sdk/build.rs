@@ -14,6 +14,10 @@ fn main() {
         project_dir, CAPI_DIR
     );
     println!(r"cargo:rustc-link-lib=static=altv-capi-server-static");
+    println!("cargo:rerun-if-changed={}/include/altv-capi-server.h", CAPI_DIR);
+    println!("cargo:rerun-if-changed={}/include/altv-capi-predefines.h", CAPI_DIR);
+    println!("cargo:rerun-if-changed={}/include/altv-capi-extra.h", CAPI_DIR);
+    println!("cargo:rerun-if-changed={}/include/server/altv-capi.h", CAPI_DIR);
 
     let bindings = bindgen::Builder::default()
         .header(format!("{}/include/altv-capi-server.h", CAPI_DIR))
