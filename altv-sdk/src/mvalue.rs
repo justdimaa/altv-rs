@@ -6,7 +6,7 @@ use crate::vector::Vector3;
 use std::fmt;
 
 // #[derive(FromPrimitive, ToPrimitive)]
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum MValue {
     None,
     Nil,
@@ -21,7 +21,7 @@ pub enum MValue {
     // Function,
     Vector3(Vector3),
     Rgba(Rgba),
-    // ByteArray(Vec<u8>),
+    ByteArray(Vec<u8>),
 }
 
 impl MValue {
@@ -55,11 +55,12 @@ impl MValue {
                 }
                 alt_IMValue_Type::ALT_IMVALUE_TYPE_LIST => {
                     let ptr = alt_IMValue_to_alt_IMValueList(ptr);
+                    let size = alt_IMValueList_GetSize(ptr);
 
-                    let mut vec = Vec::new();
+                    let mut vec = Vec::with_capacity(size as usize);
 
-                    for n in 0..alt_IMValueList_GetSize(ptr) {
-                        let val = alt_IMValueList_Get_1_CAPI_Heap(ptr, n);
+                    for n in 0..vec.capacity() {
+                        let val = alt_IMValueList_Get_1_CAPI_Heap(ptr, n as u64);
                         vec.push(MValue::new(alt_RefBase_RefStore_constIMValue_Get(val)));
                     }
 
@@ -87,6 +88,19 @@ impl MValue {
                     let ptr = alt_IMValue_to_alt_IMValueRGBA(ptr);
                     let val = alt_IMValueRGBA_Value_CAPI_Heap(ptr);
                     MValue::Rgba(Rgba::from(*val))
+                }
+                alt_IMValue_Type::ALT_IMVALUE_TYPE_BYTE_ARRAY => {
+                    let ptr = alt_IMValue_to_alt_IMValueByteArray(ptr);
+                    let size = alt_IMValueByteArray_GetSize(ptr);
+                    let val = alt_IMValueByteArray_GetData(ptr);
+
+                    let mut vec = Vec::with_capacity(size as usize);
+
+                    for n in 0..size {
+                        vec.push(*val.offset(n as isize));
+                    }
+
+                    MValue::ByteArray(vec)
                 }
                 _ => unimplemented!(),
             }
@@ -150,6 +164,7 @@ impl fmt::Debug for MValue {
             MValue::List(ref v) => write!(f, "{:?}", *v),
             MValue::Vector3(ref v) => write!(f, "{}", *v),
             MValue::Rgba(ref v) => write!(f, "{}", *v),
+            MValue::ByteArray(ref v) => write!(f, "{:?}", *v),
         }
     }
 }
@@ -167,6 +182,7 @@ impl fmt::Display for MValue {
             MValue::List(ref v) => write!(f, "{:?}", *v),
             MValue::Vector3(ref v) => write!(f, "{}", *v),
             MValue::Rgba(ref v) => write!(f, "{}", *v),
+            MValue::ByteArray(ref v) => write!(f, "{:?}", *v),
         }
     }
 }
@@ -253,6 +269,17 @@ impl From<MValue> for *mut alt_RefBase_RefStore_IMValue {
                     );
                     val as *mut alt_RefBase_RefStore_IMValue
                 }
+                MValue::ByteArray(v) => {
+                    let size = v.len();
+
+                    let val = alt_ICore_CreateMValueByteArray_CAPI_Heap(
+                        core,
+                        Box::into_raw(v.into_boxed_slice()) as *mut u8,
+                        size as u64,
+                    );
+
+                    val as *mut alt_RefBase_RefStore_IMValue
+                }
             }
         }
     }
@@ -297,5 +324,11 @@ impl From<Vector3> for MValue {
 impl From<Rgba> for MValue {
     fn from(v: Rgba) -> Self {
         MValue::Rgba(v)
+    }
+}
+
+impl From<Vec<u8>> for MValue {
+    fn from(v: Vec<u8>) -> Self {
+        MValue::ByteArray(v)
     }
 }
