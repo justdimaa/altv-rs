@@ -19,6 +19,8 @@ pub mod log;
 #[allow(dead_code)]
 pub mod natives;
 
+pub use nalgebra;
+
 pub fn hash(text: &str) -> u32 {
     let bytes = text.as_bytes();
     let mut num: Wrapping<u32> = Wrapping(0u32);

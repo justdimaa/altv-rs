@@ -1,7 +1,7 @@
 use crate::natives::alt_RGBA;
 use std::fmt;
 
-#[derive(Copy, Clone, Default)]
+#[derive(Copy, Clone, Default, PartialEq, Eq)]
 pub struct Rgba {
     pub r: u8,
     pub g: u8,

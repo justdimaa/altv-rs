@@ -57,7 +57,7 @@ unsafe extern "C" fn create_impl(
     let main = StringView::from(*alt_IResource_GetMain_CAPI_Heap(res)).get_data();
     let lib = Library::new(Path::new(&path).join(&main).display().to_string()).unwrap();
     let main_fn: ResourceMainFn = *lib.get(b"main\0").unwrap();
-    let main_result = main_fn();
+    let main_result = main_fn(alt_ICore_Instance() as usize);
 
     match main_result {
         Ok(app) => {
@@ -151,8 +151,9 @@ unsafe extern "C" fn res_on_event(res: *mut alt_IResource, e: *mut alt_CEvent) -
     dbg!(alt_CEvent_GetType(e));
 
     APPS.with(|apps| {
-        let mut apps = apps.borrow_mut();
-        let app = apps.get_mut(&res).unwrap();
+        let apps = apps.as_ptr();
+        // let mut apps = apps.borrow_mut();
+        let app = (*apps).get_mut(&res).unwrap();
         app.handle_event(e);
     });
     true
