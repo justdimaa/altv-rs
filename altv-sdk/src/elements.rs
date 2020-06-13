@@ -3,7 +3,7 @@ use crate::natives::*;
 use crate::rgba::Rgba;
 use crate::string_view::StringView;
 use crate::vector::{Rotation3, Vector3};
-use altv_core::ecs::{Component, Entity, VecStorage, World, WorldExt};
+use altv_core::ecs::{Component, Entity, ReadStorage, VecStorage, World, WorldExt};
 use altv_core::AltResource;
 use std::sync::atomic::{AtomicPtr, Ordering};
 use std::time::Duration;
@@ -170,6 +170,21 @@ pub fn create_collision_shape_cylinder(
 //         *alt.voice_channels.get(&((*voice_channel).ptr as usize)).unwrap()
 //     }
 // }
+
+pub fn delete(world: &mut World, entity: Entity) {
+    let ptr = world.exec(|cbase_objs: ReadStorage<CBaseObject>| {
+        let cbase_obj = cbase_objs.get(entity).unwrap();
+        cbase_obj.0.load(Ordering::Relaxed)
+    });
+
+    unsafe {
+        let core = alt_ICore_Instance();
+        alt_ICore_DestroyBaseObject(
+            core,
+            alt_RefBase_RefStore_IBaseObject_Create_2_CAPI_Heap(ptr),
+        );
+    }
+}
 
 pub struct CRefCountable(pub AtomicPtr<alt_CRefCountable>);
 
