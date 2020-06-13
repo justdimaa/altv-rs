@@ -326,10 +326,17 @@ impl CoreApplication {
                     let event = event as *mut alt_CColShapeEvent;
 
                     let alt = self.world.read_resource::<AltResource>();
-                    let target = alt
-                        .collision_shapes
-                        .get(&((*event).target.ptr as usize))
-                        .unwrap();
+                    let target = match alt_IColShape_GetType((*event).target.ptr) {
+                        alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_COLSHAPE => alt
+                            .collision_shapes
+                            .get(&((*event).target.ptr as usize))
+                            .unwrap(),
+                        alt_IBaseObject_Type::ALT_IBASEOBJECT_TYPE_CHECKPOINT => alt
+                            .checkpoints
+                            .get(&((*event).target.ptr as usize))
+                            .unwrap(),
+                        _ => unreachable!(),
+                    };
                     let entity = CoreApplication::get_entity(&alt, (*event).entity.ptr).unwrap();
                     let state = alt_CColShapeEvent_GetState(event);
 
