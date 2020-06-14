@@ -1,0 +1,16 @@
+[package]
+name = "altv-custom-components"
+version = "0.1.0"
+authors = ["Dimaa <personal@dimaa.io>"]
+edition = "2018"
+description = "AltV custom components"
+repository = "https://github.com/DimaaIO/altv-rs"
+license = "MIT/Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+altv = { path = "../../" }
